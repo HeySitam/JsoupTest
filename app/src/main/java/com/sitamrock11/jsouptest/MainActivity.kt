@@ -2,6 +2,7 @@ package com.sitamrock11.jsouptest
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.CoroutineScope
@@ -16,13 +17,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         imgTest = findViewById(R.id.imgTest)
-        val url = "https://firebase.google.com/"
+        val url = Constants.someUrl
+        val wbUrl = Constants.wbUrl
         CoroutineScope(Dispatchers.IO).launch {
-            val document = Jsoup.connect(url).get()
-            val img = document.select("img").first()
-            val imgSrc = img.absUrl("src")
+            val document = Jsoup.connect(wbUrl).get()
+            val cylinderCnt = document.select("#content [class='badge badge-pill badge-success']")
+              val bedCnt = document.select("#counter2")
             withContext(Dispatchers.Main){
-                Glide.with(baseContext).load(imgSrc).into(imgTest)
+              //  Glide.with(baseContext).load(imgSrc).into(imgTest)
+
             }
         }
     }
